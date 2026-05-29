@@ -56,16 +56,63 @@
 <body>
     
     
-<div style="
-    position: fixed; bottom: 15px; left: 10px; width: 390px;
+<style>
+#info-panel {
+    position: fixed; bottom: 10px; left: 10px; width: 380px;
     background: white; border: 2px solid #1a5276; border-radius: 8px;
-    padding: 12px; font-family: Arial, sans-serif; font-size: 10.5px;
+    padding: 0; font-family: Arial, sans-serif; font-size: 10.5px;
     z-index: 9999; box-shadow: 3px 3px 12px rgba(0,0,0,0.3);
-    line-height: 1.35; max-height: 88vh; overflow-y: auto;
-">
-    <h3 style="margin:0 0 5px 0;color:#1a5276;font-size:14px;border-bottom:2px solid #1a5276;padding-bottom:3px;">
-        Noe Ghana — Impact Summary
-    </h3>
+    line-height: 1.35; max-height: 85vh; overflow: hidden;
+    transition: all 0.3s ease;
+}
+#info-panel.collapsed { max-height: 42px; }
+#info-panel.collapsed #info-body { display: none; }
+#info-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px; cursor: pointer; background: #1a5276; color: white;
+    border-radius: 6px 6px 0 0; font-weight: bold; font-size: 13px;
+    user-select: none; -webkit-tap-highlight-color: transparent;
+}
+#info-panel.collapsed #info-toggle { border-radius: 6px; }
+#info-toggle .arrow { transition: transform 0.3s; font-size: 16px; }
+#info-panel.collapsed #info-toggle .arrow { transform: rotate(180deg); }
+#info-body { padding: 10px 12px; overflow-y: auto; max-height: calc(85vh - 42px); -webkit-overflow-scrolling: touch; }
+#title-bar {
+    position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
+    background: rgba(26,82,118,0.95); color: white;
+    padding: 8px 20px; border-radius: 8px;
+    font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;
+    z-index: 9999; box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    text-align: center; max-width: 90vw; white-space: nowrap;
+}
+#title-bar .sub1, #title-bar .sub2 { white-space: normal; }
+@media (max-width: 600px) {
+    #info-panel { left: 5px; right: 5px; width: auto; max-width: calc(100vw - 10px); bottom: 5px; font-size: 10px; }
+    #info-panel.collapsed { max-height: 38px; }
+    #info-toggle { font-size: 12px; padding: 8px 12px; }
+    #info-body { padding: 8px 10px; }
+    #info-body table { font-size: 9px; }
+    #title-bar { font-size: 13px; padding: 6px 14px; top: 5px; white-space: normal; }
+    #title-bar .sub1 { font-size: 9.5px; }
+    #title-bar .sub2 { font-size: 8.5px; }
+    .leaflet-control-layers { max-width: 180px; font-size: 11px; }
+    .leaflet-popup-content { max-width: 280px !important; }
+    .leaflet-popup-content div { width: auto !important; max-width: 270px !important; }
+}
+@media (max-width: 400px) {
+    #title-bar { font-size: 12px; padding: 5px 10px; }
+    #title-bar .sub1 { font-size: 8.5px; }
+    #title-bar .sub2 { display: none; }
+    #info-toggle { font-size: 11px; }
+}
+</style>
+
+<div id="info-panel" class="collapsed">
+    <div id="info-toggle" onclick="document.getElementById('info-panel').classList.toggle('collapsed')">
+        <span>Impact Summary</span>
+        <span class="arrow">&#9660;</span>
+    </div>
+    <div id="info-body">
     <table style="width:100%;border-collapse:collapse;font-size:10px;">
         <tr style="background:#e8f4fd;"><td colspan="2" style="padding:3px;font-weight:bold;color:#1a5276;">Conservation & Governance</td></tr>
         <tr><td style="padding:2px 4px;">CREMAs established / empowered</td><td style="padding:2px;text-align:right;font-weight:bold;color:#2E86C1;">12 (incl. Amokwaw)</td></tr>
@@ -115,22 +162,16 @@
     <div style="margin-top:5px;font-size:8px;color:#aaa;">
         Sources: M&E tables 2021-2024 · IMPACT/FAW/CEPF reports 2025 · PONASI P1 report 2026 · MEAL Table IMPACT
     </div>
+    </div>
 </div>
     
-<div style="
-    position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
-    background: rgba(26,82,118,0.95); color: white;
-    padding: 10px 28px; border-radius: 8px;
-    font-family: Arial, sans-serif; font-size: 17px; font-weight: bold;
-    z-index: 9999; box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-    text-align: center; max-width: 700px;
-">
+<div id="title-bar">
     Noe's Impact in Ghana
-    <div style="font-size:11px;font-weight:normal;margin-top:3px;opacity:0.9;">
-        12 CREMAs · 4 Landscapes · 364,819 ha · 5 Implementing Partners · 8 Value Chains
+    <div class="sub1" style="font-size:11px;font-weight:normal;margin-top:3px;opacity:0.9;">
+        12 CREMAs · 4 Landscapes · 364,819 ha · 5 Partners
     </div>
-    <div style="font-size:9.5px;font-weight:normal;margin-top:2px;opacity:0.75;">
-        PRCC/EconoBio2 (2018-2024) · IMPACT (2023-2025) · PONASI/ITG (2025-2028)
+    <div class="sub2" style="font-size:9.5px;font-weight:normal;margin-top:2px;opacity:0.75;">
+        PRCC/EconoBio2 · IMPACT · PONASI/ITG
     </div>
 </div>
     
